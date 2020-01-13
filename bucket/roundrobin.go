@@ -48,13 +48,13 @@ func (sb *RoundRobinServerBucket) AddServer(srv Server) error {
 // Serve - serve incoming request with server's proxy
 func (sb *RoundRobinServerBucket) Serve(w http.ResponseWriter, r *http.Request) error {
 	srv, err := sb.getNextServer()
-	if srv != nil {
-		proxy := srv.ReverseProxy()
-		log.Println("[proxy] to", srv.Address())
-		proxy.ServeHTTP(w, r)
-		return nil
+	if err != nil {
+		return err
 	}
-	return err
+	proxy := srv.ReverseProxy()
+	log.Println("[proxy] to", srv.Address())
+	proxy.ServeHTTP(w, r)
+	return nil
 }
 
 // getNextServer - round-robin algorithm for chosing next server
@@ -67,7 +67,7 @@ func (sb *RoundRobinServerBucket) getNextServer() (Server, error) {
 	}
 	next := sb.last % srvAmount
 	defer atomic.AddUint64(&sb.last, 1)
-	full := srvAmount + next
+	full := next + srvAmount
 	sb.lock.Lock()
 	for pos := next; pos < full; pos++ {
 		index := pos % srvAmount
