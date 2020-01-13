@@ -77,4 +77,9 @@ services:
 Default prometheus metrics are available on `/metrics`  
 Custom metric - `lb_bucket_size 1` - represents the total number of servers in bucket
 
+
+## Healthcheck
+Service healthcheck is avaliable on `/healthz`.  
+Return `200` if there are more then 0 servers in bucket esle `500`.
+
 Good luck.
