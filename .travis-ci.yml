@@ -1,5 +1,5 @@
 language: go
-go_import_path: github.com/freundallein/laodbalancer
+go_import_path: github.com/freundallein/loadbalancer
 
 service:
   - docker
