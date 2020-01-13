@@ -1,0 +1,25 @@
+language: go
+go_import_path: github.com/freundallein/laodbalancer
+
+service:
+  - docker
+
+jobs:
+  include:
+    - stage: test
+      name: "Unit tests"
+      env:
+        - GO111MODULE=on
+        - DOCKER_API_VERSION="1.40"
+      go: 1.13.x
+      script: make test
+
+    - stage: build
+      name: "Distribute"
+      go: 1.13.x
+      if: branch = master
+      script: make distribute
+
+notifications:
+  on_success: never
+  on_failure: never

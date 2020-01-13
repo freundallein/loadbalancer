@@ -14,7 +14,7 @@ build:
 	 CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -a -o $$BIN_DIR/go-lb
 dockerbuild:
 	 docker build -t $$DOCKER_NAME -f Dockerfile .
-upload:
+distribute:
 	echo "$$DOCKER_PASSWORD" | docker login -u "$$DOCKER_USERNAME" --password-stdin
 	docker build -t $$DOCKER_NAME .
 	docker push $$DOCKER_NAME
