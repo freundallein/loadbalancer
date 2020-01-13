@@ -1,7 +1,7 @@
 export BIN_DIR=bin
 export ADDRS=http://0.0.0.0:9000
 export PORT=8000
-export TEST_STALE_TIMEOUT=1
+export STALE_TIMEOUT=1
 
 export DOCKER_NAME=freundallein/go-lb:latest
 
