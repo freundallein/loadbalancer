@@ -8,8 +8,8 @@ import (
 	"strings"
 	"time"
 
-	"freundallein/loadbalancer/bucket"
-	"freundallein/loadbalancer/httpserv"
+	"github.com/freundallein/loadbalancer/bucket"
+	"github.com/freundallein/loadbalancer/httpserv"
 )
 
 const (

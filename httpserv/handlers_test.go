@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 
-	"freundallein/loadbalancer/bucket"
+	"github.com/freundallein/loadbalancer/bucket"
 )
 
 const (

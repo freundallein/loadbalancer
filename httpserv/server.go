@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"freundallein/loadbalancer/bucket"
+	"github.com/freundallein/loadbalancer/bucket"
 )
 
 // New - http server constructor
