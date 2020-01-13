@@ -1,35 +1,3 @@
-# loadbalancer
-[![Build Status](https://travis-ci.org/freundallein/loadbalancer.svg?branch=master)](https://travis-ci.org/freundallein/loadbalancer)  
-
-Round-robin http load balancer
-
-Proxy incoming request to provided servers bucket with round-robin.  
-Every 5 sec check server's availability.
-Every STALE_TIMEOUT minutes delete unreachable servers from bucket.
-
-
-## Configuration
-Application supports configuration via environment variables:
-```
-PORT=8000 (default 8000)
-STALE_TIMEOUT=60 (default 60 - minutes)
-ADDRS=http://service-1:9000,http://service-2:9001 (default empty)
-```
-## Installation
-### With docker  
-```
-$> docker pull freundallein/go-lb
-```
-### With source
-```
-$> git clone git@github.com:freundallein/loadbalancer.git
-$> cd loadbalancer
-$> make build
-```
-
-## Usage
-
-```
 version: "3.5"
 
 networks:
@@ -71,7 +39,3 @@ services:
     restart: always
     networks: 
       - network
-
-```
-
-Good luck.
