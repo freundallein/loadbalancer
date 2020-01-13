@@ -38,7 +38,7 @@ func (mb *MockBucket) Serve(w http.ResponseWriter, r *http.Request) error {
 	return nil
 
 }
-
+func (mb *MockBucket) Size() int{ return 0 }
 func (mb *MockBucket) Healthcheck() {}
 
 func (mb *MockBucket) RemoveStale(time.Duration) {}

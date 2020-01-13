@@ -73,5 +73,8 @@ services:
       - network
 
 ```
+## Metrics
+Default prometheus metrics are available on `/metrics`  
+Custom metric - `lb_bucket_size 1` - represents the total number of servers in bucket
 
 Good luck.

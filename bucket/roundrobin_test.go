@@ -24,6 +24,7 @@ type MockServer struct {
 func (ms *MockServer) IsAvailable() bool {
 	return ms.isAvailable
 }
+
 func (ms *MockServer) SetAvailable(status bool) {
 	ms.isAvailable = status
 }
@@ -31,10 +32,12 @@ func (ms *MockServer) SetAvailable(status bool) {
 func (ms *MockServer) Address() *url.URL {
 	return ms.address
 }
+
 func (ms *MockServer) ReverseProxy() *httputil.ReverseProxy {
 	proxy := httputil.NewSingleHostReverseProxy(ms.address)
 	return proxy
 }
+
 func (ms *MockServer) LastSeen() int64 {
 	return 1
 }

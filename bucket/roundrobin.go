@@ -19,8 +19,8 @@ const (
 
 var (
 	ErrInvalidServer         = errors.New("expected Server, got nil")
-	ErrNoServersAvailable    = errors.New("no servers are available")
-	ErrAllServersUnreachable = errors.New("all servers are unreachable")
+	ErrNoServersAvailable    = errors.New("no servers available")
+	ErrAllServersUnreachable = errors.New("all servers unreachable")
 	ErrServiceUnavailable    = errors.New("service not available")
 )
 
@@ -43,6 +43,9 @@ func (sb *RoundRobinServerBucket) AddServer(srv Server) error {
 	sb.servers = append(sb.servers, srv)
 	sb.lock.Unlock()
 	return nil
+}
+func (sb *RoundRobinServerBucket) Size() int {
+	return len(sb.servers)
 }
 
 // Serve - serve incoming request with server's proxy
@@ -119,6 +122,9 @@ func (sb *RoundRobinServerBucket) getErrHandler(srv Server) func(w http.Response
 
 // Healthcheck - passive server's availability checks
 func (sb *RoundRobinServerBucket) Healthcheck() {
+	if sb.Size() < 1 {
+		log.Printf("[healthcheck] %s \n", ErrNoServersAvailable.Error())
+	}
 	for _, srv := range sb.servers {
 		msg := "available"
 		status := srv.PingServer()
@@ -132,6 +138,9 @@ func (sb *RoundRobinServerBucket) Healthcheck() {
 
 // RemoveStale - remove stale servers from storage
 func (sb *RoundRobinServerBucket) RemoveStale(timeout time.Duration) {
+	if sb.Size() < 1 {
+		return
+	}
 	sb.lock.Lock()
 	newServers := []Server{}
 	for _, srv := range sb.servers {

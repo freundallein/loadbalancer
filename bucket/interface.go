@@ -28,6 +28,7 @@ type Server interface {
 // ServerBucket - common servers pool interface
 type ServerBucket interface {
 	AddServer(Server) error
+	Size() int
 	Serve(http.ResponseWriter, *http.Request) error
 	Healthcheck()
 	RemoveStale(time.Duration)
