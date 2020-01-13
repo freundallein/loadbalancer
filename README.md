@@ -4,7 +4,7 @@
 Round-robin http load balancer
 
 Proxy incoming request to provided servers bucket with round-robin.  
-Every 5 sec check server's availability.
+Every 5 sec check server's availability.  
 Every STALE_TIMEOUT minutes delete unreachable servers from bucket.
 
 
