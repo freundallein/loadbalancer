@@ -3,7 +3,7 @@ package httpserv
 import (
 	"net/http"
 
-	"../bucket"
+	"freundallein/loadbalancer/bucket"
 )
 
 // LoadBalance - main handler, use servers pool to serve requests

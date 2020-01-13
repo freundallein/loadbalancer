@@ -1,17 +1,23 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 	"log"
+	"os"
+	"strconv"
 	"strings"
 	"time"
 
-	"./bucket"
-	"./httpserv"
+	"freundallein/loadbalancer/bucket"
+	"freundallein/loadbalancer/httpserv"
 )
 
-const timeFormat = "02.01.2006 15:04:05.000"
+const (
+	timeFormat      = "02.01.2006 15:04:05.000"
+	serversEnvKey   = "ADDRS"
+	portKey         = "PORT"
+	staleTimeoutKey = "STALE_TIMEOUT"
+)
 
 type logWriter struct {
 }
@@ -22,18 +28,40 @@ func (writer logWriter) Write(bytes []byte) (int, error) {
 	return fmt.Print(msg)
 }
 
+func getEnv(key string, fallback string) (string, error) {
+	if value := os.Getenv(key); value != "" {
+		return value, nil
+	}
+	return fallback, nil
+}
+
+func getIntEnv(key string, fallback int) (int, error) {
+	if v := os.Getenv(key); v != "" {
+		i, err := strconv.ParseInt(v, 10, 64)
+		if err != nil {
+			return fallback, err
+		}
+		return int(i), nil
+	}
+	return fallback, nil
+}
+
 func main() {
 	log.SetFlags(0)
 	log.SetOutput(new(logWriter))
 
-	var addresses string
-	var port int
-	var staleTimeout int
-
-	flag.StringVar(&addresses, "servers", "", "set server addresses, separated by `,`")
-	flag.IntVar(&port, "port", 8000, "load balancer's port")
-	flag.IntVar(&staleTimeout, "stale-timeout", 60, "set minutes when unreachable host becomes stale")
-	flag.Parse()
+	addresses, err := getEnv(serversEnvKey, "")
+	if err != nil {
+		log.Fatalf("[config] %s", err.Error())
+	}
+	port, err := getIntEnv(portKey, 8000)
+	if err != nil {
+		log.Fatalf("[config] %s", err.Error())
+	}
+	staleTimeout, err := getIntEnv(staleTimeoutKey, 60)
+	if err != nil {
+		log.Fatalf("[config] %s", err.Error())
+	}
 
 	if len(addresses) == 0 {
 		log.Fatal("[config] No addresses provided")
