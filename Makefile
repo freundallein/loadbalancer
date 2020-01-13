@@ -13,6 +13,8 @@ test:
 	go test -cover ./...
 build:
 	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -a -o $$BIN_DIR/go-lb
+build-healthchecker:
+	cd healthchecker && CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -a -o ../$$BIN_DIR/healthchecker
 dockerbuild:
 	docker build -t $$IMAGE_NAME -f Dockerfile .
 distribute:

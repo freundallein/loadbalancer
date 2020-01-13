@@ -31,6 +31,7 @@ func collectCustomMetrics(buck bucket.ServerBucket) {
 func New(port int, bckt bucket.ServerBucket) *http.Server {
 	go collectCustomMetrics(bckt)
 	http.Handle("/metrics", promhttp.Handler())
+	http.HandleFunc("/healthz", Healthz(bckt))
 	http.HandleFunc("/", LoadBalance(bckt))
 	server := &http.Server{
 		Addr: fmt.Sprintf(":%d", port),
