@@ -5,15 +5,16 @@ export STALE_TIMEOUT=1
 
 export IMAGE_NAME=freundallein/go-lb:latest
 
-
+init:
+	git config core.hooksPath .githooks
 run:
-	 go run main.go
+	go run main.go
 test:
-	 go test -cover ./...
+	go test -cover ./...
 build:
-	 CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -a -o $$BIN_DIR/go-lb
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -a -o $$BIN_DIR/go-lb
 dockerbuild:
-	 docker build -t $$IMAGE_NAME -f Dockerfile .
+	docker build -t $$IMAGE_NAME -f Dockerfile .
 distribute:
 	echo "$$DOCKER_PASSWORD" | docker login -u "$$DOCKER_USERNAME" --password-stdin
 	docker build -t $$IMAGE_NAME .
