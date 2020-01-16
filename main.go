@@ -13,7 +13,7 @@ import (
 )
 
 const (
-	timeFormat      = "02.01.2006 15:04:05.000"
+	timeFormat      = "02.01.2006 15:04:05"
 	serversEnvKey   = "ADDRS"
 	portKey         = "PORT"
 	staleTimeoutKey = "STALE_TIMEOUT"
@@ -24,7 +24,7 @@ type logWriter struct {
 
 // Write - custom logger formatting
 func (writer logWriter) Write(bytes []byte) (int, error) {
-	msg := fmt.Sprintf("%s | %s", time.Now().UTC().Format(timeFormat), string(bytes))
+	msg := fmt.Sprintf("%s | [loadbalancer] %s", time.Now().UTC().Format(timeFormat), string(bytes))
 	return fmt.Print(msg)
 }
 
