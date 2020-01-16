@@ -28,6 +28,7 @@ $> make build
 ```
 
 ## Usage
+Docker-compose
 
 ```
 version: "3.5"
