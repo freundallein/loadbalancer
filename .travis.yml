@@ -8,9 +8,6 @@ jobs:
   include:
     - stage: test
       name: "Unit tests"
-      env:
-        - GO111MODULE=on
-        - DOCKER_API_VERSION="1.40"
       go: 1.13.x
       script: make test
 
