@@ -1,5 +1,7 @@
 # loadbalancer
-[![Build Status](https://travis-ci.org/freundallein/loadbalancer.svg?branch=master)](https://travis-ci.org/freundallein/loadbalancer)  
+[![Build Status](https://travis-ci.org/freundallein/loadbalancer.svg?branch=master)](https://travis-ci.org/freundallein/loadbalancer)
+[![Coverage Status](https://coveralls.io/repos/github/freundallein/loadbalancer/badge.svg?branch=master)](https://coveralls.io/github/freundallein/loadbalancer?branch=master)
+[![Go Report Card](https://goreportcard.com/badge/github.com/freundallein/loadbalancer)](https://goreportcard.com/report/github.com/freundallein/loadbalancer)
 
 Round-robin http load balancer
 
